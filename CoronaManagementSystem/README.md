@@ -69,44 +69,36 @@ The system uses a SQL Server database to store data, ensuring data integrity and
 
 ## Screenshots
 
-Homepage:
-![צילום מסך 2024-03-25 221040](https://github.com/noa1020/Corona_management-system/assets/146897162/d7ace8c0-9828-4363-b9f9-ea4d2aa284b7)
+### Homepage:
+![Homepage](https://github.com/noa1020/Corona_management-system/assets/146897162/d7ace8c0-9828-4363-b9f9-ea4d2aa284b7)
 
-Statistics on Covid19:
-![צילום מסך 2024-03-25 221057](https://github.com/noa1020/Corona_management-system/assets/146897162/59103e20-e303-490a-b217-c9a48f660beb)
+### Statistics on Covid19:
+![Covid19 Statistics](https://github.com/noa1020/Corona_management-system/assets/146897162/59103e20-e303-490a-b217-c9a48f660beb)
 
-Adding new member:
-![צילום מסך 2024-03-25 221115](https://github.com/noa1020/Corona_management-system/assets/146897162/c9918061-a23b-4490-9c08-fcccfe2008b5)
+### Adding New Member:
+![Adding New Member](https://github.com/noa1020/Corona_management-system/assets/146897162/c9918061-a23b-4490-9c08-fcccfe2008b5)
 
-![צילום מסך 2024-03-25 221144](https://github.com/noa1020/Corona_management-system/assets/146897162/c2b7613b-0bcb-430c-a91f-275011e298da)
+![Adding New Member 2](https://github.com/noa1020/Corona_management-system/assets/146897162/c2b7613b-0bcb-430c-a91f-275011e298da)
 
-![צילום מסך 2024-03-25 221207](https://github.com/noa1020/Corona_management-system/assets/146897162/b502b154-2d4b-4fb4-a087-5850f19df218)
+![Adding New Member 3](https://github.com/noa1020/Corona_management-system/assets/146897162/b502b154-2d4b-4fb4-a087-5850f19df218)
 
+### Basic Member Information:
+![Basic Member Information](https://github.com/noa1020/Corona_management-system/assets/146897162/914b8924-730a-4f00-ac7e-6752250882d3)
 
-Basic member information:
+### Edit Member Details:
+![Edit Member Details](https://github.com/noa1020/Corona_management-system/assets/146897162/1f419929-a014-495b-9091-1fed2e2dedd3)
 
-![צילום מסך 2024-03-25 221239](https://github.com/noa1020/Corona_management-system/assets/146897162/914b8924-730a-4f00-ac7e-6752250882d3)
+### Member Covid19 Details:
+![Member Covid19 Details](https://github.com/noa1020/Corona_management-system/assets/146897162/dbb27ad9-7dc6-4519-9e52-1ab9291995f0)
 
-Edit member details:
+### Editing a Particular Vaccine:
+![Editing a Particular Vaccine](https://github.com/noa1020/Corona_management-system/assets/146897162/fcfc0f1f-51b8-4f96-ab3b-68c408cac824)
 
-![צילום מסך 2024-03-25 221312](https://github.com/noa1020/Corona_management-system/assets/146897162/1f419929-a014-495b-9091-1fed2e2dedd3)
+### Edit/Add a Sick or Recovery Day:
+![Edit/Add a Sick or Recovery Day](https://github.com/noa1020/Corona_management-system/assets/146897162/f404f8e1-37c9-4df5-b802-7a497654a9df)
 
-Member Covid19 details:
-
-![צילום מסך 2024-03-25 221457](https://github.com/noa1020/Corona_management-system/assets/146897162/dbb27ad9-7dc6-4519-9e52-1ab9291995f0)
-
-Editing a particular vaccine:
-
-![צילום מסך 2024-03-25 215231](https://github.com/noa1020/Corona_management-system/assets/146897162/fcfc0f1f-51b8-4f96-ab3b-68c408cac824)
-
-Edit/add a sick or recovery day:
-
-![צילום מסך 2024-03-25 221727](https://github.com/noa1020/Corona_management-system/assets/146897162/f404f8e1-37c9-4df5-b802-7a497654a9df)
-
-Add vaccination:
-
-![צילום מסך 2024-03-25 221759](https://github.com/noa1020/Corona_management-system/assets/146897162/6b745e71-5c84-4a4e-824c-29d5455c9ecc)
-
+### Add Vaccination:
+![Add Vaccination](https://github.com/noa1020/Corona_management-system/assets/146897162/6b745e71-5c84-4a4e-824c-29d5455c9ecc)
 
 ## Contact Us
 
