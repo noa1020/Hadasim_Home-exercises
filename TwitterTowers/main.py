@@ -70,7 +70,7 @@ def triangle():
             print("Perimeter of the triangle:", perimeter)
             break
         elif option == 2:
-            if base % 2 == 0 or base >= 2 * height:
+            if base % 2 == 0 or base > 2 * height:
                 print("Cannot print triangle.")
                 break
             else:
