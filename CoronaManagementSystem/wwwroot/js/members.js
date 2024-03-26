@@ -1,9 +1,9 @@
-const userUri = '/User';
-let users = [];
+const memberUri = '/Member';
+let members = [];
 
-// Fetches users from the server
-async function GetUsers() {
-    fetch(userUri, {
+// Fetches members from the server
+async function GetMembers() {
+    fetch(memberUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -13,26 +13,17 @@ async function GetUsers() {
         if (!response.ok) {
             const errorMessage = await response.text();
             const errorMessageFirstLine = errorMessage.split(' at ')[0];
-            throw new Error( errorMessageFirstLine);
+            throw new Error(errorMessageFirstLine);
         }
         return response.json();
     })
-        .then(data => { users = data; DisplayItems(); })
-        .catch(error => console.error('Error geting users.', error));
+        .then(data => { members = data; DisplayMembers(); })
+        .catch(error => console.error('Error geting members.', error));
 }
-// Initial call to fetch items
-(async () => {
-    try {
-        await GetUsers();
-    } catch (error) {
-        alert(error.message);
-    }
-})();
 
-
-// Deletes a user by userId
-function DeleteUser(userId) {
-    fetch(`${userUri}/${userId}`, {
+// Deletes a member by memberId
+function DeleteMember(memberId) {
+    fetch(`${memberUri}/${memberId}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -45,51 +36,50 @@ function DeleteUser(userId) {
             throw new Error(errorMessageFirstLine);
         }
         location.reload();
-    }).catch(error => alert('Error deleting user: ' + error));
+    }).catch(error => alert(error));
 }
 
-// Updates user information
-async function UpdateUser(user) {
+// Updates member information
+async function UpdateMember(member) {
     try {
-        const response = await fetch(userUri, {
+        const response = await fetch(memberUri, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(member)
         });
 
         if (!response.ok) {
             const errorMessage = await response.text();
             const errorMessageFirstLine = errorMessage.split(' at ')[0];
-            throw new Error( errorMessageFirstLine);
+            throw new Error(errorMessageFirstLine);
         }
-     } catch (error) {
-        alert('Error updating user: '+ error);
+    } catch (error) {
+        alert(error);
     }
     location.reload();
 }
-// Add new user 
-async function AddUser(user) {
+// Add new member 
+async function AddMember(member) {
     try {
-        const response = await fetch(userUri, {
+        const response = await fetch(memberUri, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(member)
         });
 
         if (!response.ok) {
             const errorMessage = await response.text();
             const errorMessageFirstLine = errorMessage.split(' at ')[0];
-            throw new Error( errorMessageFirstLine);
+            throw new Error(errorMessageFirstLine);
         }
         location.reload();
-
-     } catch (error) {
-        alert('Error adding user: '+ error);
+    } catch (error) {
+        alert( error);
     }
 }

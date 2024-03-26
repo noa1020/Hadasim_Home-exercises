@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoronaManagementSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240325160045_Initial")]
+    [Migration("20240325215421_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,9 +25,9 @@ namespace CoronaManagementSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CoronaManagementSystem.Models.User", b =>
+            modelBuilder.Entity("CoronaManagementSystem.Models.Member", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
@@ -63,20 +63,20 @@ namespace CoronaManagementSystem.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("MemberId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("CoronaManagementSystem.Models.UserVaccination", b =>
+            modelBuilder.Entity("CoronaManagementSystem.Models.MemberVaccination", b =>
                 {
-                    b.Property<int>("UserVaccinationId")
+                    b.Property<int>("MemberVaccinationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserVaccinationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MemberVaccinationId"));
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("MemberId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -86,11 +86,11 @@ namespace CoronaManagementSystem.Migrations
                     b.Property<int>("VaccinationId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserVaccinationId");
+                    b.HasKey("MemberVaccinationId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("MemberId");
 
-                    b.ToTable("UserVaccinations");
+                    b.ToTable("MemberVaccinations");
                 });
 
             modelBuilder.Entity("CoronaManagementSystem.Models.Vaccination", b =>
@@ -112,16 +112,16 @@ namespace CoronaManagementSystem.Migrations
                     b.ToTable("Vaccinations");
                 });
 
-            modelBuilder.Entity("CoronaManagementSystem.Models.UserVaccination", b =>
+            modelBuilder.Entity("CoronaManagementSystem.Models.MemberVaccination", b =>
                 {
-                    b.HasOne("CoronaManagementSystem.Models.User", null)
+                    b.HasOne("CoronaManagementSystem.Models.Member", null)
                         .WithMany("Vaccinations")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CoronaManagementSystem.Models.User", b =>
+            modelBuilder.Entity("CoronaManagementSystem.Models.Member", b =>
                 {
                     b.Navigation("Vaccinations");
                 });

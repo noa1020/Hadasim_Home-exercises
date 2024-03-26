@@ -16,23 +16,24 @@ public class StatisticsController : ControllerBase
     {
         this.statisticsService = statisticsService;
     }
+
     [HttpGet]
     [Route("/NotVaccinatedCount")]
-    //Get count of all not vaccinated users 
-    public ActionResult<int> GetAllNotVaccinated()
+    //Get count of all not vaccinated members 
+    public async Task<int> GetAllNotVaccinated()
     {
-        var NotVaccinated = statisticsService.GetAllNotVaccinated();
-        return Ok(NotVaccinated);
+        int NotVaccinated = await statisticsService.GetAllNotVaccinated();
+        return NotVaccinated;
     }
 
     //Get all the dates someone was sick
     [HttpGet]
     [Route("/DatesOfIllness")]
-    public ActionResult<int> GetDatesOfIllness()
-    {
-        var NotVaccinated = statisticsService.GetDatesOfIllness();
-        return Ok(NotVaccinated);
-    }
 
+    public async Task<List<DateTime>?> GetDatesOfIllness()
+    {
+        List<DateTime>? datesOfIllness = await statisticsService.GetDatesOfIllness();
+        return datesOfIllness;
+    }
 
 }

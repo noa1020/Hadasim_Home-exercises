@@ -12,7 +12,7 @@ async function EditMember(inputs, image, editButton) {
     editButton.removeEventListener('click', EditMember);
 
     editButton.addEventListener('click', async () => {
-        const updatedUser = {
+        const updatedMember = {
             "image": image.dataset.imageBytes,
         }
         if(inputs[3].value==''||inputs[8].value=='') {
@@ -21,21 +21,21 @@ async function EditMember(inputs, image, editButton) {
         }
 
         inputs.forEach(input => {
-            updatedUser[input.id] = input.value.trim();
+            updatedMember[input.id] = input.value.trim();
             input.setAttribute('readonly', true);
             input.style.border = '';
         });
-        updatedUser["dateOfBirth"] == '' ? updatedUser["dateOfBirth"] = null : updatedUser["dateOfBirth"]=new Date(updatedUser["dateOfBirth"]);
-        await UpdateUser(updatedUser);
+        updatedMember["dateOfBirth"] == '' ? updatedMember["dateOfBirth"] = null : updatedMember["dateOfBirth"]=new Date(updatedMember["dateOfBirth"]);
+        await UpdateMember(updatedMember);
     });
 
 }
-// Display items logic
-async function DisplayItems() {
+// Display members logic
+async function DisplayMembers() {
     const displayContainer = document.createElement('div');
     displayContainer.classList.add('display-container');
 
-    users.forEach(async item => {
+    members.forEach(async item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('item');
 
@@ -52,9 +52,9 @@ async function DisplayItems() {
         const IdInput = document.createElement('input');
         const IdLabel = document.createElement('label');
         IdLabel.textContent = "ID: ";
-        IdInput.value = item.userId;
+        IdInput.value = item.memberId;
         IdInput.setAttribute('readonly', true);
-        IdInput.id = 'userId';
+        IdInput.id = 'memberId';
         Id.append(IdLabel, IdInput);
 
         const firstName = document.createElement('div');
@@ -122,7 +122,7 @@ async function DisplayItems() {
 // Confirm deletion logic
 function confirmDeletion(memberId) {
     if (window.confirm("Are you sure you want to delete this member?")) {
-        DeleteUser(memberId);
+        DeleteMember(memberId);
     }
 }
 
@@ -195,7 +195,7 @@ async function showContactDetails(item, itemContainer, personalarrow, basicInfo,
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete member';
         deleteButton.classList.add('delete-button');
-        deleteButton.addEventListener('click', () => confirmDeletion(item.userId));
+        deleteButton.addEventListener('click', () => confirmDeletion(item.memberId));
 
         contactdetails.append(editButton, deleteButton);
 
@@ -254,8 +254,8 @@ async function saveNewMember() {
 
             // Check if all required vaccination fields are filled
             const vaccination = {
-                "userId": memberId,
-                "userVaccinationId": 0,
+                "memberId": memberId,
+                "memberVaccinationId": 0,
                 "vaccinationDate": vaccinationDate,
                 "VaccinationId": vaccinationId,
             };
@@ -263,7 +263,7 @@ async function saveNewMember() {
         });
         // Prepare member data
         const memberData = {
-            "userId": memberId,
+            "memberId": memberId,
             "firstName": firstName,
             "lastName": lastName,
             "dateOfBirth": dateOfBirth,
@@ -278,7 +278,7 @@ async function saveNewMember() {
             "houseNumber": houseNumber,
         };
 
-        await AddUser(memberData);
+        await AddMember(memberData);
         console.log("Member data saved successfully!");
     } catch (error) {
         console.log("Error saving member data: " + error);

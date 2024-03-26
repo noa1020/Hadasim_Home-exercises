@@ -12,10 +12,10 @@ namespace CoronaManagementSystem.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Members",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MemberId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -30,7 +30,7 @@ namespace CoronaManagementSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Members", x => x.MemberId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,43 +48,43 @@ namespace CoronaManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserVaccinations",
+                name: "MemberVaccinations",
                 columns: table => new
                 {
-                    UserVaccinationId = table.Column<int>(type: "int", nullable: false)
+                    MemberVaccinationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MemberId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VaccinationId = table.Column<int>(type: "int", nullable: false),
                     VaccinationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserVaccinations", x => x.UserVaccinationId);
+                    table.PrimaryKey("PK_MemberVaccinations", x => x.MemberVaccinationId);
                     table.ForeignKey(
-                        name: "FK_UserVaccinations_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        name: "FK_MemberVaccinations_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "MemberId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserVaccinations_UserId",
-                table: "UserVaccinations",
-                column: "UserId");
+                name: "IX_MemberVaccinations_MemberId",
+                table: "MemberVaccinations",
+                column: "MemberId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserVaccinations");
+                name: "MemberVaccinations");
 
             migrationBuilder.DropTable(
                 name: "Vaccinations");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Members");
         }
     }
 }

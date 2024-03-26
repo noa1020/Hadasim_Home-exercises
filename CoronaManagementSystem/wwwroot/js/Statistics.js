@@ -1,4 +1,4 @@
-// Fetches not vaccinated users count from the server
+// Fetches not vaccinated members count from the server
 async function GetNotVaccinated() {
     const response = await fetch('/NotVaccinatedCount', {
         method: 'GET',
@@ -22,10 +22,9 @@ async function DisplayNotVaccinatedCount() {
         const notVaccinatedCount = await GetNotVaccinated();
         unvaccinatedCountDisplay.innerHTML = "There are " + notVaccinatedCount + " unvaccinated HMO members";
     } catch (error) {
-        console.error('Error getting users.', error);
+        console.error('Error getting members.', error);
     }
 }
-DisplayNotVaccinatedCount();
 
 
 //Fetches all the dates someone was sick
@@ -88,4 +87,14 @@ async function DisplayGraph() {
         }
     });
 }
-DisplayGraph();
+// Initial call to fetch items
+(async () => {
+    try {
+        vaccinationsArr = await GetVaccination();
+        await GetMembers();
+        await DisplayNotVaccinatedCount();
+    } catch (error) {
+        alert(error.message);
+    }
+})();
+ DisplayGraph();

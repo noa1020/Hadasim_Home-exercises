@@ -16,24 +16,24 @@ namespace CoronaManagementSystem.Controllers
         {
             this.vaccinationService = vaccinationService;
         }
-       
+
         //Get all vaccinations.
         [HttpGet]
-        public ActionResult<List<Vaccination>> GetAll()
+        public async Task<List<Vaccination>?> GetAll()
         {
-            var vaccinations = vaccinationService.GetAll();
-            return Ok(vaccinations);
+            List<Vaccination>? vaccinations = await vaccinationService.GetAll();
+            return vaccinations;
         }
 
         //Add new vaccination.
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(Vaccination newvaccination)
+        public async Task<IActionResult> Add(Vaccination newvaccination)
         {
             if (newvaccination == null)
             {
                 return BadRequest("vaccination object is null");
             }
-            var existingvaccination = await vaccinationService.GetById(newvaccination.VaccinationId!);
+            Vaccination? existingvaccination = await vaccinationService.GetById(newvaccination.VaccinationId!);
             if (existingvaccination != default)
             {
                 return BadRequest("vaccination ID already exists");
@@ -42,17 +42,16 @@ namespace CoronaManagementSystem.Controllers
             {
                 var tasks = new List<Task> { vaccinationService.Add(newvaccination) };
                 await Task.WhenAll(tasks);
-                return CreatedAtAction(nameof(CreateAsync), new { id = newvaccination.VaccinationId }, newvaccination);
+                return CreatedAtAction(nameof(Add), new { id = newvaccination.VaccinationId }, newvaccination);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, new { errorMessage = ex.Message });
             }
         }
-        
         //Update an existing vaccination.
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(Vaccination vaccinationToUpdate)
+        public async Task<IActionResult> Update(Vaccination vaccinationToUpdate)
         {
             if (vaccinationToUpdate == null)
             {
@@ -73,12 +72,12 @@ namespace CoronaManagementSystem.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-       
+
         //Delete vaccination by ID.
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var vaccination = await vaccinationService.GetById(id);
+            Vaccination? vaccination = await vaccinationService.GetById(id);
             if (vaccination == null)
             {
                 return NotFound();

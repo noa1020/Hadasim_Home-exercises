@@ -2,49 +2,54 @@ using CoronaManagementSystem.Data;
 using CoronaManagementSystem.Interfaces;
 using CoronaManagementSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace CoronaManagementSystem.Services;
-public class StatisticsService : IStatisticsService
+namespace CoronaManagementSystem.Services
 {
-    private readonly AppDbContext _context;
-    public StatisticsService(AppDbContext context)
+    public class StatisticsService : IStatisticsService
     {
-        _context = context;
-    }
+        private readonly IRepository _repository;
 
-    //Get count of all not vaccinated users 
-    public int GetAllNotVaccinated()
-    {
-
-        List<User> users = new UserService(_context).GetAll();
-        int count = 0;
-        users.ForEach(user =>
+        public StatisticsService(IRepository repository)
         {
-            if (user?.Vaccinations?.Count == 0) count++;
-        });
-        return count;
-    }
+            _repository = repository;
+        }
 
-    //Get all the dates someone was sick
-    public List<DateTime> GetDatesOfIllness()
-    {
-        List<DateTime> datesOfIllness = new List<DateTime>();
-        List<User> users = new UserService(_context).GetAll();
-        users.ForEach(user =>
+        //Get count of all not vaccinated members 
+        public async Task<int> GetAllNotVaccinated()
         {
-            if (user.IllnessDate != null)
+            List<Member>? members = await _repository.GetAllMembers();
+            int count = 0;
+            members.ForEach(member =>
             {
+                if (member?.Vaccinations?.Count == 0)
+                    count++;
+            });
+            return count;
+        }
 
-                DateTime RecoveryDate = user.RecoveryDate != null ? (DateTime)user.RecoveryDate : DateTime.Today;
-                DateTime date = (DateTime)user.IllnessDate;
-                datesOfIllness.Add(date);
-                while (date.Date != RecoveryDate.Date)
+        //Get all the dates someone was sick
+        public async Task<List<DateTime>?> GetDatesOfIllness()
+        {
+            List<DateTime>? datesOfIllness = new List<DateTime>();
+            List<Member>? members = await _repository.GetAllMembers();
+            members.ForEach(member =>
+            {
+                if (member.IllnessDate != null)
                 {
-                    date = date.AddDays(1);
+                    DateTime recoveryDate = member.RecoveryDate != null ? (DateTime)member.RecoveryDate : DateTime.Today;
+                    DateTime date = (DateTime)member.IllnessDate;
                     datesOfIllness.Add(date);
+                    while (date.Date != recoveryDate.Date)
+                    {
+                        date = date.AddDays(1);
+                        datesOfIllness.Add(date);
+                    }
                 }
-            }
-        });
-        return datesOfIllness;
+            });
+            return datesOfIllness;
+        }
     }
 }

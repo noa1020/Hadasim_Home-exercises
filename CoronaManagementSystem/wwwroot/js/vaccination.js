@@ -19,11 +19,4 @@ async function GetVaccination() {
         throw new Error('Unable to get Vaccinations.' + error.message);
     }
 }
-// Initial call to fetch items to vaccinationArr
-(async () => {
-    try {
-        vaccinationsArr = await GetVaccination();
-    } catch (error) {
-        alert(error.message);
-    }
-})();
+

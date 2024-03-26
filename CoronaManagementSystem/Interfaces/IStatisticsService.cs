@@ -4,7 +4,7 @@ namespace CoronaManagementSystem.Interfaces
 {
     public interface IStatisticsService
     {
-        int GetAllNotVaccinated();
-        List<DateTime> GetDatesOfIllness();
+        Task<int> GetAllNotVaccinated();
+        Task<List<DateTime>?> GetDatesOfIllness();
     }
 }

@@ -1,6 +1,6 @@
 ﻿//edit vaccination logic
-async function EditVaccination(item, selectElement, vaccinationDateInput, userVaccinationId, editVaccinationButton) {
-    const index = item.vaccinations.findIndex(v => v.userVaccinationId === userVaccinationId);
+async function EditVaccination(item, selectElement, vaccinationDateInput, memberVaccinationId, editVaccinationButton) {
+    const index = item.vaccinations.findIndex(v => v.memberVaccinationId === memberVaccinationId);
 
     selectElement.removeAttribute('readonly');
     vaccinationDateInput.removeAttribute('readonly');
@@ -30,12 +30,12 @@ async function confirmChangesHandler(vaccinationDateInput, index, item, selectEl
     }
     item.vaccinations[index].vaccinationId = parseInt(selectElement.value);
     item.vaccinations[index].vaccinationDate = new Date(vaccinationDateInput.value);
-    await UpdateUser(item);
+    await UpdateMember(item);
 }
 
 // Add vaccination logic
-async function AddVaccinationDialog(user) {
-    if (user.vaccinations?.length == 4) {
+async function AddVaccinationDialog(member) {
+    if (member.vaccinations?.length == 4) {
         alert("You cannot take more than 4 vaccines");
     }
     else {
@@ -86,17 +86,17 @@ async function AddVaccinationDialog(user) {
         confirmButton.textContent = 'Confirm';
         confirmButton.addEventListener('click', async () => {
             const newVaccination = {
-                "userVaccinationId": 0,
+                "memberVaccinationId": 0,
                 "vaccinationDate": dateInput.value,
                 "VaccinationId": parseInt(selectElement.value),
-                "userId": user.userId
+                "memberId": member.memberId
             };
             if (!newVaccination["vaccinationDate"] || !newVaccination["VaccinationId"]) {
                 alert('Please fill in all required fields');
                 return;
             }
-            user.vaccinations.push(newVaccination);
-            await UpdateUser(user);
+            member.vaccinations.push(newVaccination);
+            await UpdateMember(member);
             const dialogContainer = document.getElementById('dialog-container');
             document.body.removeChild(dialogContainer);
         });
@@ -115,7 +115,7 @@ async function AddVaccinationDialog(user) {
     }
 }
 //Edit covid19 parameters(recovery and illness dates)
-async function EditCovid19(editButton, recoveryDateInput, illnessDateInput,userId) {
+async function EditCovid19(editButton, recoveryDateInput, illnessDateInput,memberId) {
     const covid19details = [recoveryDateInput, illnessDateInput]
     covid19details.forEach(input => {
         input.removeAttribute('readonly');
@@ -127,24 +127,24 @@ async function EditCovid19(editButton, recoveryDateInput, illnessDateInput,userI
     editButton.removeEventListener('click', EditCovid19);
 
     editButton.addEventListener('click', async () => {
-        const updatedUser = {
-            "userId": userId
+        const updatedMember = {
+            "memberId": memberId
         }
         covid19details.forEach(input => {
-            updatedUser[input.id] = input.value.trim();
+            updatedMember[input.id] = input.value.trim();
         });
-        if (updatedUser["recoveryDate"] && !updatedUser["illnessDate"]) {
+        if (updatedMember["recoveryDate"] && !updatedMember["illnessDate"]) {
             alert('Please fill the day with illness');
             return;
         }
-        updatedUser["recoveryDate"] == '' ? updatedUser["recoveryDate"] = null : updatedUser["recoveryDate"]=new Date(updatedUser["recoveryDate"]);
-        updatedUser["illnessDate"] == '' ? updatedUser["illnessDate"] = null :  updatedUser["illnessDate"]=new Date(updatedUser["illnessDate"]);
+        updatedMember["recoveryDate"] == '' ? updatedMember["recoveryDate"] = null : updatedMember["recoveryDate"]=new Date(updatedMember["recoveryDate"]);
+        updatedMember["illnessDate"] == '' ? updatedMember["illnessDate"] = null :  updatedMember["illnessDate"]=new Date(updatedMember["illnessDate"]);
         covid19details.forEach(input => {
             input.setAttribute('readonly', true);
             input.style.border = '';
         });
 
-        await UpdateUser(updatedUser);
+        await UpdateMember(updatedMember);
     });
 }
 
@@ -204,12 +204,12 @@ async function ShowCovid19Details(item, itemContainer, covidarrow) {
                 const editVaccinationButton = document.createElement('button');
                 editVaccinationButton.textContent = 'Edit vaccination details';
                 editVaccinationButton.classList.add('edit-vaccination-button');
-                editVaccinationButton.onclick = () => EditVaccination(item, selectElement, vaccinationDateInput, vaccinationDetails.userVaccinationId, editVaccinationButton);
+                editVaccinationButton.onclick = () => EditVaccination(item, selectElement, vaccinationDateInput, vaccinationDetails.memberVaccinationId, editVaccinationButton);
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'delete vaccination ';
                 deleteButton.classList.add('delete-vaccination-button');
-                deleteButton.onclick = async () => await DeleteVaccination(vaccinationDetails.userVaccinationId, item);
+                deleteButton.onclick = async () => await DeleteVaccination(vaccinationDetails.memberVaccinationId, item);
 
                 vaccination.append(vaccinationLabel, vaccinationDate, vaccinationName, editVaccinationButton, deleteButton);
                 vaccinations.append(vaccination);
@@ -251,7 +251,7 @@ async function ShowCovid19Details(item, itemContainer, covidarrow) {
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit covid19 details';
         editButton.classList.add('edit-covid19-button');
-        editButton.addEventListener('click', () => EditCovid19(editButton, recoveryDateInput, illnessDateInput,item.userId));
+        editButton.addEventListener('click', () => EditCovid19(editButton, recoveryDateInput, illnessDateInput,item.memberId));
 
         const addvaccination = document.createElement('button');
         addvaccination.textContent = 'Add vaccination';
@@ -319,8 +319,8 @@ async function addVaccinationForm() {
     vaccinationFields.appendChild(vaccinationDiv);
 }
 //Display vaccination logic
-async function DeleteVaccination(userVaccinationId, item) {
-    const index = item.vaccinations.findIndex(v => v.userVaccinationId == userVaccinationId);
+async function DeleteVaccination(memberVaccinationId, item) {
+    const index = item.vaccinations.findIndex(v => v.memberVaccinationId == memberVaccinationId);
     item.vaccinations.splice(index, 1);
-    await UpdateUser(item);
+    await UpdateMember(item);
 }

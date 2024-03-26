@@ -6,8 +6,8 @@ public class AppDbContext : DbContext
     public AppDbContext(){}
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Member> Members { get; set; }
     public DbSet<Vaccination> Vaccinations { get; set; }
-    public DbSet<UserVaccination>  UserVaccinations{ get; set; }
+    public DbSet<MemberVaccination>  MemberVaccinations{ get; set; }
 
 }

@@ -5,7 +5,7 @@ namespace CoronaManagementSystem.Interfaces
 {
     public interface IVaccinationService
     {
-        List<Vaccination> GetAll();
+        Task<List<Vaccination>?> GetAll();
         Task<bool> Delete(int id);
         Task<Vaccination?> GetById(int id);
         Task<bool> Update(Vaccination newVaccination);
