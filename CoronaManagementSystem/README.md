@@ -51,7 +51,7 @@ Access to vaccine list information (addition, deletion, etc.) is done through th
 
 ### Illustrative illustrations:
 
-<img src="https://github.com/noa1020/Hadasim_Home-exercises/assets/146897162/923dc814-0a23-47e6-8999-dfbe6b449709" alt="Architectural specification" width="380" style="border:1px solid black">
+<img src="https://github.com/noa1020/Hadasim_Home-exercises/assets/146897162/923dc814-0a23-47e6-8999-dfbe6b449709" alt="Architectural specification" width="400" style="border:1px solid black">
 <img src="https://github.com/noa1020/Corona_management-system/assets/146897162/93c921e4-2e64-4ddb-8c55-a7a66424ad2b" alt="database" width="600" style="border:1px solid black">
 
 ## Data Protection
