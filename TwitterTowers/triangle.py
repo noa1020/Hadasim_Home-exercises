@@ -11,6 +11,37 @@ class Triangle(Shape):
     def __init__(self, width, height):
         super().__init__(width, height)
 
+    #A function that returns the perimeter of a triangle
+    def perimeter_calculate(self):
+        side = math.sqrt((self.width / 2) ** 2 + self.height ** 2)
+        perimeter = self.width + 2 * side
+        return perimeter
+
+    #A function that prints a triangle using asterisks
+    def print_triangle(self):
+        width = int(self.width)
+        height = int(self.height)
+        #Edge case
+        if width == 1:
+            print(height * NEWLINE + ASTERISK)
+            return
+        profit = width // 2
+        print(SPACE * profit + ASTERISK)
+        profit -= 1
+        asterisks = 3
+        Number_of_lines_per_group = (height * 2) // (width - 2)
+        Number_of_groups = (width - 2) // 2
+        rest_of_lines = height - 2 - Number_of_lines_per_group * Number_of_groups
+        for i in range(rest_of_lines):
+            print(SPACE * profit + ASTERISK * asterisks)
+        for i in range(Number_of_groups):
+            for j in range(Number_of_lines_per_group):
+                print(SPACE * profit + ASTERISK * asterisks)
+            asterisks += 2
+            profit -= 1
+        print(ASTERISK * width)
+        
+    # Checking whether to print the perimeter of a triangle or the shape of a triangle
     def print(self):
         while True:
             try:
@@ -30,30 +61,3 @@ class Triangle(Shape):
                     break
             else:
                 print("Invalid option!")
-
-    def perimeter_calculate(self):
-        side = math.sqrt((self.width / 2) ** 2 + self.height ** 2)
-        perimeter = self.width + 2 * side
-        return perimeter
-
-    def print_triangle(self):
-        width = int(self.width)
-        height = int(self.height)
-        if width == 1:
-            print(height * NEWLINE + ASTERISK)
-            return
-        profit = width // 2
-        print(SPACE * profit + ASTERISK)
-        profit -= 1
-        asterisks = 3
-        Number_of_lines_per_group = (height * 2) // (width - 2)
-        Number_of_groups = (width - 2) // 2
-        rest_of_lines = height - 2 - Number_of_lines_per_group * Number_of_groups
-        for i in range(rest_of_lines):
-            print(SPACE * profit + ASTERISK * asterisks)
-        for i in range(Number_of_groups):
-            for j in range(Number_of_lines_per_group):
-                print(SPACE * profit + ASTERISK * asterisks)
-            asterisks += 2
-            profit -= 1
-        print(ASTERISK * width)

@@ -1,4 +1,5 @@
 /Lib
 /Scripts
 /.idea
+/__pycache__
 pyvenv.cfg
