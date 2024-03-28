@@ -9,7 +9,6 @@ namespace CoronaManagementSystem.Interfaces
         Task<bool> Update(Member newMember);
         Task<Member?> GetById(string id);
         Task<bool> Add(Member newMember);
-        Task UpdateMemberProperties(Member existingMember, Member newMember);
-
+        void UpdateMemberProperties(Member existingMember, Member newMember);
     }
 }

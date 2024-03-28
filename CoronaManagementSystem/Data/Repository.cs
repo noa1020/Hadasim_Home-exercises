@@ -15,10 +15,10 @@ public class Repository : IRepository
     public async Task<List<Member>?> GetAllMembers()
     {
         List<Member>? members = await _context.Members.ToListAsync();
-        List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
+        List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
         members.ForEach(member =>
         {
-            member.Vaccinations = vaccinations?.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
+            member.Vaccinations = mVaccinations?.FindAll(mVaccination => mVaccination?.MemberId == member.MemberId);
         });
         return members;
     }
@@ -26,6 +26,9 @@ public class Repository : IRepository
     //Add new member to the datbase
     public async Task<bool> DeleteMember(Member member)
     {
+        List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
+        mVaccinations = mVaccinations?.FindAll(mVaccination => mVaccination?.MemberId == member.MemberId);
+        mVaccinations?.ForEach(async mVaccination => await DeleteMemberVaccination(mVaccination));
         _context.Members.Remove(member);
         await SaveChanges();
         return true;
@@ -35,9 +38,9 @@ public class Repository : IRepository
     public async Task<Member?> GetMemberById(string id)
     {
         Member? member = await _context.Members.FirstOrDefaultAsync(u => u.MemberId == id);
-        List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
-        member.Vaccinations = vaccinations?.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
-        return member
+        List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
+        member.Vaccinations = mVaccinations?.FindAll(mVaccination => mVaccination?.MemberId == member.MemberId);
+        return member;
     }
 
     //Add new member to the datbase
@@ -51,6 +54,16 @@ public class Repository : IRepository
     //Update member in the datbase
     public async Task<bool> UpdateMember(Member member)
     {
+        if (member.Vaccinations != null)
+        {
+            List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
+            vaccinations = vaccinations.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
+            vaccinations.ForEach(async vaccination =>
+            {
+                if (!member.Vaccinations.Contains(vaccination))
+                    await DeleteMemberVaccination(vaccination);
+            });
+        }
         _context.Members.Update(member);
         await SaveChanges();
         return true;
@@ -91,7 +104,6 @@ public class Repository : IRepository
         await SaveChanges();
         return true;
     }
-
 
     //Delete vaccination of member
     public async Task<bool> DeleteMemberVaccination(MemberVaccination vaccination)

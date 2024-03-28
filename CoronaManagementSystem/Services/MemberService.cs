@@ -21,13 +21,7 @@ namespace CoronaManagementSystem.Services
         //Get all members
         public async Task<List<Member>?> GetAll()
         {
-            List<Member>? members = await _repository.GetAllMembers();
-            List<MemberVaccination>? vaccinations = await _repository.GetAllMemberVaccinations();
-            members.ForEach(member =>
-            {
-                member.Vaccinations = vaccinations?.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
-            });
-            return members;
+            return await _repository.GetAllMembers();
         }
 
         //Get member by id
@@ -75,7 +69,7 @@ namespace CoronaManagementSystem.Services
             try
             {
                 ValidationService.IsValidMember(newMember);
-                await UpdateMemberProperties(existingMember, newMember);
+                UpdateMemberProperties(existingMember, newMember);
                 await _repository.UpdateMember(existingMember);
                 return true;
             }
@@ -106,7 +100,7 @@ namespace CoronaManagementSystem.Services
         }
 
         // Update member properties
-        public async Task UpdateMemberProperties(Member existingMember, Member newMember)
+        public void UpdateMemberProperties(Member existingMember, Member newMember)
         {
             existingMember.FirstName = newMember.FirstName ?? existingMember.FirstName;
             existingMember.LastName = newMember.LastName ?? existingMember.LastName;
@@ -119,19 +113,7 @@ namespace CoronaManagementSystem.Services
             existingMember.City = newMember.City ?? existingMember.City;
             existingMember.Street = newMember.Street ?? existingMember.Street;
             existingMember.HouseNumber = newMember.HouseNumber ?? existingMember.HouseNumber;
-            
-            if (newMember.Vaccinations != null)
-            {
-                List<MemberVaccination>? vaccinations = await _repository.GetAllMemberVaccinations();
-                vaccinations = vaccinations.FindAll(Vaccination => Vaccination?.MemberId == existingMember.MemberId);
-                vaccinations.ForEach(async vaccination =>
-                {
-                    if (!existingMember.Vaccinations.Contains(vaccination))
-                        await _repository.DeleteMemberVaccination(vaccination);
-                });
-                existingMember.Vaccinations = newMember.Vaccinations;
-            }
-
+            existingMember.Vaccinations = newMember.Vaccinations ?? existingMember.Vaccinations;
         }
     }
 }

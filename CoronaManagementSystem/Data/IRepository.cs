@@ -14,7 +14,7 @@ namespace CoronaManagementSystem.Data
         Task<bool> UpdateVaccination(Vaccination vaccination);
         Task<Vaccination?> GetVaccinationById(int id);
         Task<bool> AddVaccination(Vaccination newVaccination);
-        Task<List<MemberVaccination>?> GetAllMemberVaccinations();
+        Task<bool> DeleteMemberVaccination(MemberVaccination vaccination);
         Task SaveChanges();
     }
 }
