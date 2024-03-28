@@ -4,17 +4,17 @@ namespace CoronaManagementSystem.Validation;
 
 public class ValidationFunctions
 {
+    // Israeli ID validation logic here
     public static bool IsValidIsraeliId(string? id)
     {
         if (string.IsNullOrWhiteSpace(id))
             return false;
-        // Israeli ID validation logic here
         return Regex.IsMatch(id, @"^\d{9}$") && IsIsraeliIdValid(id);
     }
 
+    // Additional Israeli ID validation logic here
     private static bool IsIsraeliIdValid(string id)
     {
-        // Additional Israeli ID validation logic here
         int[] idDigits = id.Select(c => int.Parse(c.ToString())).ToArray();
         int sum = 0;
         for (int i = 0; i < idDigits.Length - 1; i++)
@@ -38,27 +38,27 @@ public class ValidationFunctions
         return (sum + lastDigit) % 10 == 0;
     }
 
+    // Israeli landline phone validation logic here
     public static bool IsValidIsraeliLandlinePhone(string? phoneNumber)
     {
-        // Israeli landline phone validation logic here
         return string.IsNullOrWhiteSpace(phoneNumber) || Regex.IsMatch(phoneNumber, @"^0\d{0,2}-?\d{7}$");
     }
 
+    // Israeli mobile phone validation logic here
     public static bool IsValidIsraeliMobilePhone(string? phoneNumber)
     {
-        // Israeli mobile phone validation logic here
         return !string.IsNullOrWhiteSpace(phoneNumber) && Regex.IsMatch(phoneNumber, @"^05\d(-|\s)?\d{7}$");
     }
 
+    // String validation logic here
     public static bool IsValidString(string? name)
     {
-        // String validation logic here
         return !string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[a-zA-Z\s]+$");
     }
 
+    // Birth Date validation logic here
     public static bool IsValidBirthDate(DateTime? birthDate)
     {
-        // Birth Date validation logic here
         return birthDate != default && birthDate <= DateTime.Today;
     }
 }

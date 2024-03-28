@@ -21,8 +21,7 @@ namespace CoronaManagementSystem.Controllers
         [HttpGet]
         public async Task<List<Member>?> GetAll()
         {
-            List<Member>? members = await memberService.GetAll();
-            return members;
+            return await memberService.GetAll();
         }
 
         //Get member by ID.
@@ -86,15 +85,14 @@ namespace CoronaManagementSystem.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            Member? member = await memberService.GetById(id);
-            if (member == null)
-            {
-                return NotFound();
-            }
             try
             {
                 await memberService.Delete(id);
                 return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

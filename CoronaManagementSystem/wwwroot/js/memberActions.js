@@ -30,6 +30,7 @@ async function EditMember(inputs, image, editButton) {
     });
 
 }
+
 // Display members logic
 async function DisplayMembers() {
     const displayContainer = document.createElement('div');
@@ -122,6 +123,7 @@ async function DisplayMembers() {
 
     document.body.appendChild(displayContainer);
 }
+
 // Confirm deletion logic
 function confirmDeletion(memberId) {
     if (window.confirm("Are you sure you want to delete this member?")) {
@@ -233,6 +235,7 @@ function UploadImage(button) {
 
     input.click();
 }
+
 //save new memeber()
 async function saveNewMember() {
     try {

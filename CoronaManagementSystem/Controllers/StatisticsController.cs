@@ -22,8 +22,7 @@ public class StatisticsController : ControllerBase
     //Get count of all not vaccinated members 
     public async Task<int> GetAllNotVaccinated()
     {
-        int NotVaccinated = await statisticsService.GetAllNotVaccinated();
-        return NotVaccinated;
+        return await statisticsService.GetAllNotVaccinated();
     }
 
     //Get all the dates someone was sick
@@ -32,8 +31,7 @@ public class StatisticsController : ControllerBase
 
     public async Task<List<DateTime>?> GetDatesOfIllness()
     {
-        List<DateTime>? datesOfIllness = await statisticsService.GetDatesOfIllness();
-        return datesOfIllness;
+        return await statisticsService.GetDatesOfIllness();
     }
 
 }

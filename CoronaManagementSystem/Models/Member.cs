@@ -6,21 +6,29 @@ public class Member
 {
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public string? MemberId{ get; set; }
-    [MaxLength(50)]
-    public string? FirstName{ get; set; }
-    [MaxLength(50)]
-    public string? LastName{ get; set; }
+    public string? MemberId { get; set; }
     [Required]
-    public DateTime DateOfBirth{ get; set; }
-    public string? Landlinephone{ get; set; }
-    public string? MobilePhone{ get; set; }
-    public List<MemberVaccination>? Vaccinations{ get; set; }
-    public DateTime? IllnessDate{ get; set; }
-    public DateTime? RecoveryDate{ get; set; }
+    [MaxLength(50)]
+    public string? FirstName { get; set; }
+    [Required]
+    [MaxLength(50)]
+    public string? LastName { get; set; }
+    [Required]
+    public DateTime DateOfBirth { get; set; }
+    public string? Landlinephone { get; set; }
+    [Required]
+    public string? MobilePhone { get; set; }
+    public List<MemberVaccination>? Vaccinations { get; set; }
+    public DateTime? IllnessDate { get; set; }
+    public DateTime? RecoveryDate { get; set; }
     public string? Image { get; set; }
-    public string? City{ get; set; }
-    public string? Street{ get; set; }
-    public int? HouseNumber{ get; set; }
+    [Required]
+    [MaxLength(50)]
+    public string? City { get; set; }
+    [Required]
+    [MaxLength(50)]
+    public string? Street { get; set; }
+    [Required]
+    public int? HouseNumber { get; set; }
 }
 

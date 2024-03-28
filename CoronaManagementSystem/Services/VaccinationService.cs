@@ -30,8 +30,17 @@ public class VaccinationService : IVaccinationService
     }
 
     //Add a new vaccination to the database
-    public async Task<bool> Add(Vaccination newVaccination)
+    public async Task<bool> Add(Vaccination? newVaccination)
     {
+        if (newVaccination == null)
+        {
+            throw new ArgumentNullException(nameof(newVaccination), "vaccination object is null");
+        }
+        Vaccination? existingvaccination = await GetById(newVaccination.VaccinationId!);
+        if (existingvaccination != default)
+        {
+            throw new ArgumentException("vaccination ID already exists");
+        }
         try
         {
             ValidationService.IsValidVaccination(newVaccination);
@@ -45,11 +54,20 @@ public class VaccinationService : IVaccinationService
     }
 
     // Update an existing vaccination in the database
-    public async Task<bool> Update(Vaccination newVaccination)
+    public async Task<bool> Update(Vaccination? newVaccination)
     {
+        if (newVaccination == null)
+        {
+            throw new ArgumentNullException(nameof(newVaccination), "vaccination object is null");
+        }
+        Vaccination? vaccination = await GetById(newVaccination.VaccinationId!);
+        if (vaccination == null)
+        {
+            throw new ArgumentException("vaccination not found");
+        }
         try
         {
-            Vaccination? existingVaccination = await _repository.GetVaccinationById(newVaccination.VaccinationId);
+            Vaccination? existingVaccination = await GetById(newVaccination.VaccinationId);
             if (existingVaccination == null)
             {
                 return false;
@@ -70,13 +88,13 @@ public class VaccinationService : IVaccinationService
     // Delete a vaccination from the database
     public async Task<bool> Delete(int id)
     {
+        Vaccination? vaccination = await GetById(id);
+        if (vaccination == null)
+        {
+            throw new ArgumentException("vaccination not found");
+        }
         try
         {
-            Vaccination? vaccination = await _repository.GetVaccinationById(id);
-            if (vaccination == null)
-            {
-                return false;
-            }
             await _repository.DeleteVaccination(vaccination);
             return true;
         }

@@ -35,8 +35,8 @@ function DeleteMember(memberId) {
             const errorMessageFirstLine = errorMessage.split(' at ')[0];
             throw new Error(errorMessageFirstLine);
         }
-        location.reload();
     }).catch(error => alert(error));
+    location.reload();
 }
 
 // Updates member information
@@ -61,6 +61,7 @@ async function UpdateMember(member) {
     }
     location.reload();
 }
+
 // Add new member 
 async function AddMember(member) {
     try {
@@ -78,8 +79,8 @@ async function AddMember(member) {
             const errorMessageFirstLine = errorMessage.split(' at ')[0];
             throw new Error(errorMessageFirstLine);
         }
-        location.reload();
     } catch (error) {
-        alert( error);
+        alert(error);
     }
+    location.reload();
 }

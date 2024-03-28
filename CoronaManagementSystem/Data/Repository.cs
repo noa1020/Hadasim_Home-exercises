@@ -14,7 +14,13 @@ public class Repository : IRepository
     //Get all members from the datbase
     public async Task<List<Member>?> GetAllMembers()
     {
-        return await _context.Members.ToListAsync();
+        List<Member>? members = await _context.Members.ToListAsync();
+        List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
+        members.ForEach(member =>
+        {
+            member.Vaccinations = vaccinations?.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
+        });
+        return members;
     }
 
     //Add new member to the datbase
@@ -28,7 +34,10 @@ public class Repository : IRepository
     //Get member by Id from the datbase
     public async Task<Member?> GetMemberById(string id)
     {
-        return await _context.Members.FirstOrDefaultAsync(u => u.MemberId == id);
+        Member? member = await _context.Members.FirstOrDefaultAsync(u => u.MemberId == id);
+        List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
+        member.Vaccinations = vaccinations?.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
+        return member
     }
 
     //Add new member to the datbase
@@ -83,15 +92,11 @@ public class Repository : IRepository
         return true;
     }
 
-    //Get all Members vaccination from the datbase
-    public async Task<List<MemberVaccination>?> GetAllMemberVaccinations()
-    {
-        return await _context.MemberVaccinations.ToListAsync(); 
-    }
+
     //Delete vaccination of member
     public async Task<bool> DeleteMemberVaccination(MemberVaccination vaccination)
     {
-         _context.MemberVaccinations.Remove(vaccination);
+        _context.MemberVaccinations.Remove(vaccination);
         await SaveChanges();
         return true;
     }

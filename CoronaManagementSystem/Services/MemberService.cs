@@ -43,8 +43,7 @@ namespace CoronaManagementSystem.Services
             {
                 throw new ArgumentNullException(nameof(newMember), "Member object is null");
             }
-
-            Member? existingMember = await _repository.GetMemberById(newMember.MemberId!);
+            Member? existingMember = await GetById(newMember.MemberId!);
             if (existingMember != null)
             {
                 throw new ArgumentException("Member ID already exists");
@@ -64,17 +63,17 @@ namespace CoronaManagementSystem.Services
         // Update an existing member in the database
         public async Task<bool> Update(Member? newMember)
         {
+            if (newMember == null)
+            {
+                throw new ArgumentNullException(nameof(newMember), "Member object is null");
+            }
+            Member? existingMember = await GetById(newMember.MemberId!);
+            if (existingMember == null)
+            {
+                throw new ArgumentException("Member not found");
+            }
             try
             {
-                if (newMember == null)
-                {
-                    throw new ArgumentNullException(nameof(newMember), "Member object is null");
-                }
-                Member? existingMember = await _repository.GetMemberById(newMember.MemberId!);
-                if (existingMember == null)
-                {
-                    throw new ArgumentException("Member not found");
-                }
                 ValidationService.IsValidMember(newMember);
                 await UpdateMemberProperties(existingMember, newMember);
                 await _repository.UpdateMember(existingMember);
@@ -90,13 +89,13 @@ namespace CoronaManagementSystem.Services
         // Delete a member from the database
         public async Task<bool> Delete(string id)
         {
+            Member? member = await GetById(id);
+            if (member == null)
+            {
+                throw new ArgumentException("Member not found");
+            }
             try
             {
-                Member? member = await _repository.GetMemberById(id);
-                if (member == null)
-                {
-                    return false;
-                }
                 await _repository.DeleteMember(member);
                 return true;
             }
@@ -120,7 +119,7 @@ namespace CoronaManagementSystem.Services
             existingMember.City = newMember.City ?? existingMember.City;
             existingMember.Street = newMember.Street ?? existingMember.Street;
             existingMember.HouseNumber = newMember.HouseNumber ?? existingMember.HouseNumber;
-
+            
             if (newMember.Vaccinations != null)
             {
                 List<MemberVaccination>? vaccinations = await _repository.GetAllMemberVaccinations();

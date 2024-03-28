@@ -317,6 +317,7 @@ async function addVaccinationForm() {
 
     vaccinationFields.appendChild(vaccinationDiv);
 }
+
 //Display vaccination logic
 async function DeleteVaccination(memberVaccinationId, item) {
     const index = item.vaccinations.findIndex(v => v.memberVaccinationId == memberVaccinationId);

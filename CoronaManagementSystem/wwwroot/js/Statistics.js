@@ -15,6 +15,7 @@ async function GetNotVaccinated() {
     const data = await response.json();
     return data;
 }
+
 //Displaying the amount of unvaccinated members
 async function DisplayNotVaccinatedCount() {
     try {
@@ -25,7 +26,6 @@ async function DisplayNotVaccinatedCount() {
         console.error('Error getting members.', error);
     }
 }
-
 
 //Fetches all the dates someone was sick
 async function GetDatesOfIllness() {
@@ -87,6 +87,7 @@ async function DisplayGraph() {
         }
     });
 }
+
 // Initial call to fetch items
 (async () => {
     try {
@@ -97,4 +98,4 @@ async function DisplayGraph() {
         alert(error.message);
     }
 })();
- DisplayGraph();
+DisplayGraph();
