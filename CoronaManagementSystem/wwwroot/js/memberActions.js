@@ -15,7 +15,7 @@ async function EditMember(inputs, image, editButton) {
         const updatedMember = {
             "image": image.dataset.imageBytes,
         }
-        if(inputs[3].value==''||inputs[8].value=='') {
+        if (inputs[3].value == '' || inputs[8].value == '') {
             alert('Please fill in all required fields');
             return;
         }
@@ -25,7 +25,7 @@ async function EditMember(inputs, image, editButton) {
             input.setAttribute('readonly', true);
             input.style.border = '';
         });
-        updatedMember["dateOfBirth"] == '' ? updatedMember["dateOfBirth"] = null : updatedMember["dateOfBirth"]=new Date(updatedMember["dateOfBirth"]);
+        updatedMember["dateOfBirth"] == '' ? updatedMember["dateOfBirth"] = null : updatedMember["dateOfBirth"] = new Date(updatedMember["dateOfBirth"]);
         await UpdateMember(updatedMember);
     });
 
@@ -55,6 +55,7 @@ async function DisplayMembers() {
         IdInput.value = item.memberId;
         IdInput.setAttribute('readonly', true);
         IdInput.id = 'memberId';
+        IdInput.pattern = '^\d{9}$';
         Id.append(IdLabel, IdInput);
 
         const firstName = document.createElement('div');
@@ -64,6 +65,7 @@ async function DisplayMembers() {
         firstNameInput.value = item.firstName;
         firstNameInput.setAttribute('readonly', true);
         firstNameInput.id = 'firstName';
+        firstNameInput.pattern = "^[a-zA-Z\s]+$";
         firstName.append(firstNameLabel, firstNameInput);
 
         const lastName = document.createElement('div');
@@ -73,6 +75,7 @@ async function DisplayMembers() {
         lastNameInput.value = item.lastName;
         lastNameInput.setAttribute('readonly', true);
         lastNameInput.id = 'lastName';
+        lastNameInput.pattern = "^[a-zA-Z\s]+$";
         lastName.append(lastNameLabel, lastNameInput);
 
         const dateOfBirth = document.createElement('div');
@@ -144,6 +147,7 @@ async function showContactDetails(item, itemContainer, personalarrow, basicInfo,
         phoneInput.value = item.landlinephone;
         phoneInput.setAttribute('readonly', true);
         phoneInput.id = 'landLinePhone';
+        phoneInput.pattern = '^0\d{0,2}-?\d{7}$';
         phone.append(phoneLabel, phoneInput);
 
         const mobilePhone = document.createElement('div');
@@ -153,6 +157,7 @@ async function showContactDetails(item, itemContainer, personalarrow, basicInfo,
         mobilePhoneInput.value = item.mobilePhone;
         mobilePhoneInput.setAttribute('readonly', true);
         mobilePhoneInput.id = 'mobilePhone';
+        mobilePhoneInput.pattern = '^05\d(-|\s)?\d{7}$';
         mobilePhone.append(mobilePhoneLabel, mobilePhoneInput);
         contactdetails.append(phone, mobilePhone);
 
@@ -163,6 +168,7 @@ async function showContactDetails(item, itemContainer, personalarrow, basicInfo,
         cityInput.value = item.city;
         cityInput.setAttribute('readonly', true);
         cityInput.id = 'city';
+        cityInput.pattern = "^[a-zA-Z\s]+$";
         city.append(cityLabel, cityInput);
 
         const street = document.createElement('div');
@@ -172,6 +178,7 @@ async function showContactDetails(item, itemContainer, personalarrow, basicInfo,
         streetInput.value = item.street;
         streetInput.setAttribute('readonly', true);
         streetInput.id = 'street';
+        streetInput.pattern = "^[a-zA-Z\s]+$";
         street.append(streetLabel, streetInput);
 
         const houseNumber = document.createElement('div');
@@ -239,9 +246,9 @@ async function saveNewMember() {
         const street = document.getElementById("street").value.trim();
         const houseNumber = document.getElementById("houseNumber").value.trim();
         let illnessDate = document.getElementById("illnessDate").value.trim();
-        illnessDate == '' ? illnessDate = null : illnessDate=new Date(illnessDate);
+        illnessDate == '' ? illnessDate = null : illnessDate = new Date(illnessDate);
         let recoveryDate = document.getElementById("recoveryDate").value.trim();
-        recoveryDate == '' ? recoveryDate = null : recoveryDate=new Date(recoveryDate);
+        recoveryDate == '' ? recoveryDate = null : recoveryDate = new Date(recoveryDate);
         const imageBytes = document.querySelector('.upload-image-button').dataset.imageBytes;
         let vaccinations = [];
 

@@ -142,8 +142,7 @@ async function EditCovid19(editButton, recoveryDateInput, illnessDateInput,membe
         covid19details.forEach(input => {
             input.setAttribute('readonly', true);
             input.style.border = '';
-        });
-
+        });        
         await UpdateMember(updatedMember);
     });
 }

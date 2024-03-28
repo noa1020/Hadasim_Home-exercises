@@ -23,28 +23,28 @@
             <button type="button" class="btn btn-primary upload-image-button" onclick="UploadImage(this)">Upload Image</button><br>
 
             <label for="memberId">Member ID:</label>
-            <input type="text" id="memberId" name="memberId" class="form-control" required><br>
+            <input type="text" pattern="^\d{9}$" id="memberId" name="memberId" class="form-control" required><br>
     
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" class="form-control" required><br>
+            <input type="text" pattern="^[a-zA-Z\s]+$" id="firstName" name="firstName" class="form-control" required><br>
     
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" class="form-control" required><br>
+            <input type="text" pattern="^[a-zA-Z\s]+$" id="lastName" name="lastName" class="form-control" required><br>
     
             <label for="dateOfBirth">Date of Birth:</label>
             <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" required><br>
     
             <label for="phone">Landline phone:</label>
-            <input type="text" id="phone" name="phone" class="form-control" ><br>
+            <input type="text" pattern="^0\d{0,2}-?\d{7}$" id="phone" name="phone" class="form-control" ><br>
     
             <label for="mobilePhone">Mobile phone:</label>
-            <input type="text" id="mobilePhone" name="mobilePhone" class="form-control"required ><br>
+            <input type="text" pattern="^05\d(-|\s)?\d{7}$" id="mobilePhone" name="mobilePhone" class="form-control"required ><br>
     
             <label for="city">City:</label>
-            <input type="text" id="city" name="city" class="form-control" required><br>
+            <input type="text" pattern="^[a-zA-Z\s]+$" id="city" name="city" class="form-control" required><br>
     
             <label for="street">Street:</label>
-            <input type="text" id="street" name="street" class="form-control" required><br>
+            <input type="text" pattern="^[a-zA-Z\s]+$" id="street" name="street" class="form-control" required><br>
     
             <label for="houseNumber">House Number:</label>
             <input type="number" id="houseNumber" name="houseNumber" class="form-control" required><br>
