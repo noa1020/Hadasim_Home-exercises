@@ -70,7 +70,7 @@ The system uses a SQL Server database to store data, ensuring data integrity and
 2. Install the required development environment.
 3. Start the server and the database.
 4. Launch the client on a web browser.
-5.Conect SWAGGER to add vaccines.
+5. Conect Swgger to add vaccinations.
 
 
 ## Screenshots
