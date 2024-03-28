@@ -38,8 +38,9 @@ public class Repository : IRepository
     public async Task<Member?> GetMemberById(string id)
     {
         Member? member = await _context.Members.FirstOrDefaultAsync(u => u.MemberId == id);
+        if (member == null) return null;
         List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
-        member.Vaccinations = mVaccinations?.FindAll(mVaccination => mVaccination?.MemberId == member.MemberId);
+        member.Vaccinations = mVaccinations?.FindAll(mVaccination => mVaccination.MemberId == member.MemberId);
         return member;
     }
 
