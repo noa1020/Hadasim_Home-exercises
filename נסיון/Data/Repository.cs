@@ -28,11 +28,7 @@ public class Repository : IRepository
     {
         List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
         mVaccinations = mVaccinations?.FindAll(mVaccination => mVaccination?.MemberId == member.MemberId);
-        foreach (var vaccination in mVaccinations)
-        {
-            if (!member.Vaccinations.Contains(vaccination))
-                await DeleteMemberVaccination(vaccination);
-        }
+        mVaccinations?.ForEach(async mVaccination => await DeleteMemberVaccination(mVaccination));
         _context.Members.Remove(member);
         await SaveChanges();
         return true;
@@ -59,27 +55,19 @@ public class Repository : IRepository
     //Update member in the datbase
     public async Task<bool> UpdateMember(Member member)
     {
-        try
+        if (member.Vaccinations != null)
         {
-            if (member.Vaccinations != null)
+            List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
+            vaccinations = vaccinations.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
+            vaccinations.ForEach(async vaccination =>
             {
-                List<MemberVaccination>? vaccinations = await _context.MemberVaccinations.ToListAsync();
-                vaccinations = vaccinations.FindAll(Vaccination => Vaccination?.MemberId == member.MemberId);
-                foreach (var vaccination in vaccinations)
-                {
-                    if (!member.Vaccinations.Contains(vaccination))
-                        await DeleteMemberVaccination(vaccination);
-                }
-            }
-            _context.Members.Update(member);
-            await SaveChanges();
-            return true;
+                if (!member.Vaccinations.Contains(vaccination))
+                    await DeleteMemberVaccination(vaccination);
+            });
         }
-        catch (Exception e)
-        {
-            System.Console.WriteLine(e);
-            return false;
-        }
+        _context.Members.Update(member);
+        await SaveChanges();
+        return true;
     }
 
     //Get all vaccination from the datbase

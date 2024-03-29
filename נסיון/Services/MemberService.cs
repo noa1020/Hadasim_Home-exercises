@@ -68,8 +68,8 @@ namespace CoronaManagementSystem.Services
             }
             try
             {
+                ValidationService.IsValidMember(newMember);
                 UpdateMemberProperties(existingMember, newMember);
-                ValidationService.IsValidMember(existingMember);
                 await _repository.UpdateMember(existingMember);
                 return true;
             }
