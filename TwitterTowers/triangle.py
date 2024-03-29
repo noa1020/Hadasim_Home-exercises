@@ -25,20 +25,20 @@ class Triangle(Shape):
         if width == 1:
             print(height * NEWLINE + ASTERISK)
             return
-        profit = width // 2
-        print(SPACE * profit + ASTERISK)
-        profit -= 1
+        spaces = width // 2
+        print(SPACE * spaces + ASTERISK)
+        spaces -= 1
         asterisks = 3
         Number_of_lines_per_group = (height * 2) // (width - 2)
         Number_of_groups = (width - 2) // 2
         rest_of_lines = height - 2 - Number_of_lines_per_group * Number_of_groups
         for i in range(rest_of_lines):
-            print(SPACE * profit + ASTERISK * asterisks)
+            print(SPACE * spaces + ASTERISK * asterisks)
         for i in range(Number_of_groups):
             for j in range(Number_of_lines_per_group):
-                print(SPACE * profit + ASTERISK * asterisks)
+                print(SPACE * spaces + ASTERISK * asterisks)
             asterisks += 2
-            profit -= 1
+            spaces -= 1
         print(ASTERISK * width)
         
     # Checking whether to print the perimeter of a triangle or the shape of a triangle
