@@ -23,7 +23,7 @@ public class Repository : IRepository
         return members;
     }
 
-    //Add new member to the datbase
+    //Delete member from the datbase
     public async Task<bool> DeleteMember(Member member)
     {
         List<MemberVaccination>? mVaccinations = await _context.MemberVaccinations.ToListAsync();
@@ -31,7 +31,7 @@ public class Repository : IRepository
         foreach (var vaccination in mVaccinations)
         {
             if (!member.Vaccinations.Contains(vaccination))
-                await DeleteMemberVaccination(vaccination);
+                _context.MemberVaccinations.Remove(vaccination);
         }
         _context.Members.Remove(member);
         await SaveChanges();
@@ -68,7 +68,7 @@ public class Repository : IRepository
                 foreach (var vaccination in vaccinations)
                 {
                     if (!member.Vaccinations.Contains(vaccination))
-                        await DeleteMemberVaccination(vaccination);
+                        _context.MemberVaccinations.Remove(vaccination);
                 }
             }
             _context.Members.Update(member);
@@ -114,14 +114,6 @@ public class Repository : IRepository
     public async Task<bool> UpdateVaccination(Vaccination vaccination)
     {
         _context.Vaccinations.Update(vaccination);
-        await SaveChanges();
-        return true;
-    }
-
-    //Delete vaccination of member
-    public async Task<bool> DeleteMemberVaccination(MemberVaccination vaccination)
-    {
-        _context.MemberVaccinations.Remove(vaccination);
         await SaveChanges();
         return true;
     }
