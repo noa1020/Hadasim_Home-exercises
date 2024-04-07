@@ -1,5 +1,6 @@
 const vaccinationUri = '/Vaccination';
 let vaccinationsArr;
+
 //fetch all vaccinations
 async function GetVaccination() {
     try {
