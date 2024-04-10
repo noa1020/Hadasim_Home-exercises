@@ -1223,3 +1223,20 @@
  date: 08/04/2024, beginning time: 02:44:59.4189621, controller name: /DatesOfIllness, action: GET, user name: unconnected, duration: 47ms.
  date: 08/04/2024, beginning time: 02:44:59.4253858, controller name: /NotVaccinatedCount, action: GET, user name: unconnected, duration: 30ms.
  date: 08/04/2024, beginning time: 02:44:59.4288804, controller name: /Member, action: GET, user name: unconnected, duration: 35ms.
+ date: 10/04/2024, beginning time: 19:02:55.0929182, controller name: /Vaccination, action: GET, user name: unconnected, duration: 1001ms.
+ date: 10/04/2024, beginning time: 19:02:55.1240210, controller name: /DatesOfIllness, action: GET, user name: unconnected, duration: 1028ms.
+ date: 10/04/2024, beginning time: 19:02:55.3410173, controller name: /NotVaccinatedCount, action: GET, user name: unconnected, duration: 232ms.
+ date: 10/04/2024, beginning time: 19:02:55.3738447, controller name: /Member, action: GET, user name: unconnected, duration: 264ms.
+ date: 10/04/2024, beginning time: 19:03:02.2685888, controller name: /Vaccination, action: GET, user name: unconnected, duration: 6ms.
+ date: 10/04/2024, beginning time: 19:03:02.3142584, controller name: /DatesOfIllness, action: GET, user name: unconnected, duration: 50ms.
+ date: 10/04/2024, beginning time: 19:03:02.4250686, controller name: /Member, action: GET, user name: unconnected, duration: 75ms.
+ date: 10/04/2024, beginning time: 19:03:02.4525464, controller name: /NotVaccinatedCount, action: GET, user name: unconnected, duration: 85ms.
+ date: 10/04/2024, beginning time: 19:03:27.2727697, controller name: /Vaccination, action: GET, user name: unconnected, duration: 759ms.
+ date: 10/04/2024, beginning time: 19:03:27.3040459, controller name: /DatesOfIllness, action: GET, user name: unconnected, duration: 790ms.
+ date: 10/04/2024, beginning time: 19:03:27.4764662, controller name: /NotVaccinatedCount, action: GET, user name: unconnected, duration: 197ms.
+ date: 10/04/2024, beginning time: 19:03:27.5014699, controller name: /Member, action: GET, user name: unconnected, duration: 222ms.
+ date: 10/04/2024, beginning time: 19:03:40.5998779, controller name: /Member, action: PUT, user name: unconnected, duration: 318ms.
+ date: 10/04/2024, beginning time: 19:03:40.6392992, controller name: /Vaccination, action: GET, user name: unconnected, duration: 4ms.
+ date: 10/04/2024, beginning time: 19:03:40.8523067, controller name: /DatesOfIllness, action: GET, user name: unconnected, duration: 217ms.
+ date: 10/04/2024, beginning time: 19:03:40.8653668, controller name: /NotVaccinatedCount, action: GET, user name: unconnected, duration: 207ms.
+ date: 10/04/2024, beginning time: 19:03:40.8793849, controller name: /Member, action: GET, user name: unconnected, duration: 221ms.
